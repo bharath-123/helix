@@ -277,6 +277,7 @@ impl SignedBidSubmission {
                     .map_err(|_| SigError::InvalidBlsSignatureBytes)?;
 
                 let message = bid.message.signing_root(builder_domain);
+                info!("BHARATH: Electra builder domain is: {:?}", builder_domain);
                 uncompressed_signature.verify(&uncompressed_builder_pubkey, message)
             }
             SignedBidSubmission::Fulu(bid) => {
@@ -288,6 +289,7 @@ impl SignedBidSubmission {
                     .map_err(|_| SigError::InvalidBlsSignatureBytes)?;
 
                 let message = bid.message.signing_root(builder_domain);
+                info!("BHARATH: Fulu builder domain is: {:?}", builder_domain);
                 uncompressed_signature.verify(&uncompressed_builder_pubkey, message)
             }
         };
