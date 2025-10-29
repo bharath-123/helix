@@ -5,6 +5,7 @@ use lh_types::{ForkName, SignedRoot, Slot, test_utils::TestRandom};
 use serde::{Deserialize, Serialize};
 use ssz::{Decode, DecodeError};
 use ssz_derive::{Decode, Encode};
+use tracing::info;
 use tree_hash::TreeHash;
 use tree_hash_derive::TreeHash;
 
@@ -268,6 +269,7 @@ impl SignedBidSubmission {
     pub fn verify_signature(&self, builder_domain: B256) -> Result<(), SigError> {
         let valid = match self {
             SignedBidSubmission::Electra(bid) => {
+                info!("BHARATH: I am validating an Electra submission!");
                 let uncompressed_builder_pubkey =
                     BlsPublicKey::deserialize(bid.message.builder_pubkey.as_slice())
                         .map_err(|_| SigError::InvalidBlsPubkeyBytes)?;
@@ -278,6 +280,7 @@ impl SignedBidSubmission {
                 uncompressed_signature.verify(&uncompressed_builder_pubkey, message)
             }
             SignedBidSubmission::Fulu(bid) => {
+                info!("BHARATH: I am validating a Fulu submission submission!");
                 let uncompressed_builder_pubkey =
                     BlsPublicKey::deserialize(bid.message.builder_pubkey.as_slice())
                         .map_err(|_| SigError::InvalidBlsPubkeyBytes)?;
