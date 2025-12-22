@@ -7,6 +7,8 @@ postgres:
   password: password
   region: 0
   region_name: "LOCAL"
+api:
+  port: 4040
 broadcasters:
   - !BeaconClient
     url: http://localhost:5052

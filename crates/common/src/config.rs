@@ -21,6 +21,8 @@ pub struct RelayConfig {
     pub instance_id: Option<String>,
     #[serde(default)]
     pub website: WebsiteConfig,
+    #[serde(default)]
+    pub api: ApiConfig,
     pub postgres: PostgresConfig,
     pub simulators: Vec<SimulatorConfig>,
     #[serde(default)]
@@ -64,6 +66,7 @@ impl RelayConfig {
         Self {
             instance_id: Default::default(),
             website: Default::default(),
+            api: Default::default(),
             postgres: Default::default(),
             simulators: Default::default(),
             beacon_clients: Default::default(),
@@ -97,6 +100,20 @@ impl RelayConfig {
 impl AsRef<RelayConfig> for RelayConfig {
     fn as_ref(&self) -> &RelayConfig {
         self
+    }
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+pub struct ApiConfig {
+    #[serde(default)]
+    pub port: u16,
+}
+
+impl Default for ApiConfig {
+    fn default() -> Self {
+        Self {
+            port: 4040,
+        }
     }
 }
 
